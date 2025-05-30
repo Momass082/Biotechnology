@@ -1,0 +1,866 @@
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* General Styles */
+:root {
+    /* Define a color palette for consistency */
+    --primary-text-color: #333;
+    --secondary-text-color: #555;
+    --highlight-color: #007BFF; /* A professional blue */
+    --accent-color: #28a745; /* A professional green */
+    --light-bg-color: #f9f5f1;
+    --dark-bg-color: #222;
+    --glass-light: rgba(255, 255, 255, 0.15); /* Slightly more opaque for less blur */
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.2);
+
+    /* New: Animation Specific Colors/Sizes */
+    --bot-color-primary: #4CAF50; /* A friendly green for the bot */
+    --bot-color-secondary: #388E3C;
+    --chart-green: #28a745;
+    --chart-red: #dc3545;
+    --chart-border: #6c757d;
+    --coffee-brown: #6D4C41;
+    --cup-cream: #FFFDE7;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; /* Modern, professional font stack */
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-bg-color);
+    color: var(--primary-text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6; /* Improved readability */
+}
+
+a {
+    color: var(--highlight-color);
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+a:hover {
+    color: var(--highlight-color);
+    text-decoration: underline; /* Standard underline for links */
+}
+
+/* Header */
+header {
+    background-color: var(--glass-light); /* Using defined glass variable */
+    backdrop-filter: blur(8px); /* Slightly less blur */
+    -webkit-backdrop-filter: blur(8px);
+    color: white; /* Text color on header */
+    padding: 15px 20px; /* Slightly more padding */
+    text-align: center;
+    position: relative;
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: url('backround2.jpg') center center / cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ensure hero section allows for content above the animation */
+    flex-direction: column; /* Allows content and animation to stack */
+}
+
+.hero-content {
+    color: white;
+    text-align: center;
+    padding: 30px; /* More padding for a softer look */
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly more opaque for better readability */
+    border-radius: 15px; /* Softer corners */
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 8px 20px var(--glass-shadow); /* More pronounced shadow */
+    margin-bottom: 50px; /* Space between hero text and animation */
+}
+
+h1 {
+    font-size: 3.5rem; /* Slightly larger */
+    margin: 0 0 15px 0; /* Add bottom margin */
+    font-weight: 700; /* Bolder */
+}
+
+h2 {
+    color: var(--accent-color); /* Consistent green */
+    font-size: 2.2rem;
+    margin-top: 40px; /* More space above sections */
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+h3 {
+    color: var(--accent-color); /* Consistent green */
+    font-size: 1.6rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.hero-content p {
+  color: lightblue; /* This is a dark grey, offering good contrast */
+ /* animation: popIn 1s ease-out forwards;*/
+}
+
+/* Main Content Wrapper */
+#main-content {
+    /* This new ID wraps all your main page content */
+    flex-grow: 1; /* Allows it to take up available space */
+    position: relative; /* Needed for z-index with overlay */
+    z-index: 1; /* Ensure it's below the overlay */
+    transition: opacity 0.3s ease; /* Smooth transition for dimming */
+}
+
+#main-content.dim {
+    opacity: 0.5;
+    pointer-events: none; /* Disables interaction when dimmed */
+}
+
+/* Content Area - Renamed from #main-content to .wrapper for clarity */
+.wrapper {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px; /* More padding */
+    line-height: 1.8; /* Increased line height for readability */
+    text-align: left; /* Typically more professional than center */
+    background: linear-gradient(to bottom right, #f0f8ff, #ffffff); /* Softer light blue gradient */
+    border-radius: 15px; /* Softer corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Paragraphs */
+p {
+    color: var(--secondary-text-color); /* Consistent text color */
+    margin-bottom: 15px; /* Spacing between paragraphs */
+}
+
+/* Project Specific Content */
+.project {
+    background-color: #ffffff; /* White background for projects */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px; /* Space between projects */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+    text-align: center; /* Center project content by default */
+}
+
+.project .project-content {
+    text-align: left; /* Text content aligns left within the project box */
+    padding: 10px 0;
+}
+
+/* Side Panel and Menu Icon */
+#hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    color: var(--dark-bg-color); /* Crucial: Changed to a dark variable for visibility */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000; /* Crucial: Ensure it's always on top, even over the side panel */
+    box-shadow: 0 4px 10px var(--glass-shadow);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, left 0.3s ease;
+}
+
+#hamburger-menu:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+    transform: scale(1.05);
+}
+
+.side-panel {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05)); /* Slightly more prominent glass effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-right: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: left 0.3s ease;
+    z-index: 9999;
+    padding-top: 80px;
+    box-sizing: border-box;
+    overflow-y: auto; /* New: Allows scrolling if menu content is too long */
+}
+
+.side-panel.show {
+    left: 0;
+}
+
+/*
+  Removed this problematic block as you noted.
+  The hamburger menu's fixed position and z-index should keep it correctly
+  positioned and visible regardless of the side panel's state.
+*/
+/*
+.side-panel.show + #hamburger-menu {
+    left: 260px;
+    top: 20px;
+    z-index: 10000;
+}
+*/
+
+.side-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-panel ul li {
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Darker border for contrast */
+}
+
+.side-panel ul li:last-child {
+    border-bottom: none;
+}
+
+.side-panel ul li a {
+    color: var(--dark-bg-color); /* Crucial: Changed link color to dark for readability */
+    text-decoration: none;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.side-panel ul li a:hover {
+    color: var(--highlight-color);
+}
+
+/* Crucial: All dropdown-specific CSS blocks are removed as per your instruction.
+  If you decide to reintroduce dropdowns, you'll need to add these back.
+*/
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 9998;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px; /* More padding */
+    background-color: var(--dark-bg-color);
+    color: white;
+    margin-top: 30px; /* More space above footer */
+    font-size: 0.9em;
+}
+
+footer span {
+    display: block;
+    margin-top: 5px;
+}
+
+/* Accordion Button Styles (for your main contact section) */
+.accordion-button {
+    background-color: var(--dark-bg-color);
+    color: white;
+    padding: 10px 15px; /* More padding */
+    font-size: 1.15rem; /* Slightly larger */
+    text-align: left;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px; /* Softer corners */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 8px; /* More spacing */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.accordion-button:hover {
+    background-color: #4a4a4a; /* Slightly lighter hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Arrow Styles for main accordions */
+.accordion-button .arrow {
+    transition: transform 0.3s ease;
+    font-size: 1.6rem; /* Slightly larger */
+    transform: rotate(0deg);
+}
+
+/* Accordion Content for main accordions */
+.accordion-content {
+    padding: 0 20px; /* **Adjusted padding:** Now includes horizontal padding, but keep top/bottom 0 */
+    background-color: var(--dark-bg-color);
+    color: #fff;
+    max-height: 0;
+    overflow: hidden;
+    /* **Crucial:** Changed to 0.3s transition for max-height and padding.
+       This will make the accordion animation smooth. */
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    border-radius: 4px;
+    margin-bottom: 0; /* REMOVED SPACE */
+    border: none; /* REMOVED BLACK LINE */
+}
+
+/* When the accordion content is 'active' or 'open' */
+.accordion-content.active {
+    max-height: 200px; /* **Adjust as needed:** Set a value large enough to contain your content */
+    padding-top: 15px; /* Add top padding when open */
+    padding-bottom: 15px; /* Add bottom padding when open */
+}
+
+/* Rotate arrow when accordion is active */
+.accordion-button.active .arrow {
+    transform: rotate(180deg);
+}
+
+.accordion-content p,
+.accordion-content a { /* Added a to ensure consistent styling for links inside accordion */
+    color: white;
+    padding: 5px 0; /* Reduced padding for content within p */
+    margin: 0;
+    font-size: 1em;
+}
+
+/* Images in Content (Professional Sizing) */
+img {
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 20px auto; /* More margin around images */
+    border-radius: 8px; /* Slightly rounded corners for images */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+    object-fit: contain; /* Ensures entire image is visible, scales down if needed */
+}
+
+---
+## Trading Bot Animation Styles
+---
+
+/* Animation Container */
+.trading-bot-animation-section {
+    width: 100%;
+    max-width: 900px; /* Limit max width for a contained scene */
+    height: 400px; /* Fixed height for the animation viewport */
+    position: relative;
+    overflow: hidden; /* Hide anything outside the container */
+    margin: 50px auto; /* Center the animation */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #1a2a3a, #2a3a4a); /* Darker background for depth */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align elements to the bottom of the container */
+    animation: fadeInScale 1.5s ease-out forwards; /* Initial fade-in */
+}
+
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Floor */
+.floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Height of the floor */
+    background: linear-gradient(to top, #333, #444);
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    z-index: 1;
+}
+
+/* Candlestick Chart (positioned on the floor) */
+.candlestick-chart {
+    position: absolute;
+    bottom: 50px; /* Above the floor */
+    left: 50%;
+    transform: translateX(-50%); /* Center the chart */
+    display: flex;
+    align-items: flex-end;
+    height: 250px; /* Max height for chart area */
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    overflow: hidden; /* Important for newly generated candles */
+}
+
+.candlestick {
+    width: 10px; /* Matches JS candleWidth */
+    margin: 0 2px; /* Matches JS gap / 2 for each side */
+    background-color: var(--chart-green); /* Default green (bullish) */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    transition: height 0.3s ease-out; /* Smooth height change */
+    /* Add a subtle animation to make them "breathe" slightly */
+    animation: candlePulse 2s infinite alternate ease-in-out;
+    transform-origin: bottom; /* Ensure it scales from the bottom */
+}
+
+.candlestick.bearish {
+    background-color: var(--chart-red); /* Red for bearish */
+}
+
+@keyframes candlePulse {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.02); }
+}
+
+/* Trading Bot */
+.bot-character {
+    position: absolute;
+    bottom: 55px; /* Slightly above the floor */
+    left: 15%; /* Position to the left */
+    width: 80px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    animation: botIdle 4s ease-in-out infinite alternate; /* Gentle idle animation */
+}
+
+.bot-body {
+    width: 70px;
+    height: 70px;
+    background-color: var(--bot-color-primary);
+    border-radius: 50% 50% 10px 10px; /* Rounded top, flatter bottom */
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+}
+
+.bot-head {
+    width: 60px;
+    height: 60px;
+    background-color: var(--bot-color-secondary);
+    border-radius: 50%;
+    position: absolute;
+    top: -20px; /* Overlap with body */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    animation: headBob 3s ease-in-out infinite alternate; /* Head movement */
+}
+
+.bot-eye {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+    animation: eyeBlink 5s infinite;
+}
+
+.bot-eye.left {
+    left: 15px;
+}
+
+.bot-eye.right {
+    right: 15px;
+}
+
+.computer-screen {
+    position: absolute;
+    top: 15px; /* Adjust based on bot head size */
+    width: 80%;
+    height: 35%;
+    background-color: #0d1e2e; /* Dark screen background */
+    border-radius: 5px;
+    border: 1px solid #1e3a53;
+    color: #00FF00; /* Green text for screen */
+    font-family: 'Press Start 2P', monospace; /* Pixelated font if imported, otherwise monospace */
+    font-size: 0.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide overflowing text */
+    text-align: center;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 5px rgba(0,255,0,0.3);
+}
+
+.bot-arm {
+    width: 15px;
+    height: 40px;
+    background-color: var(--bot-color-secondary);
+    position: absolute;
+    top: 40px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    animation: armMove 3s ease-in-out infinite alternate;
+}
+
+.bot-arm.left {
+    left: 5px;
+    transform-origin: top center;
+    transform: rotate(10deg);
+}
+
+.bot-arm.right {
+    right: 5px;
+    transform-origin: top center;
+    transform: rotate(-10deg);
+}
+
+/* Bot Animations */
+@keyframes botIdle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes headBob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(2deg); }
+}
+
+@keyframes eyeBlink {
+    0%, 20%, 40%, 60%, 80%, 100% { transform: scaleY(1); }
+    10%, 30%, 50% { transform: scaleY(0.1); } /* Simulate blink */
+}
+
+@keyframes armMove {
+    0%, 100% { transform: rotate(10deg); }
+    50% { transform: rotate(-5deg); }
+}
+
+/* Coffee Cup (Optional) */
+.coffee-cup {
+    position: absolute;
+    bottom: 55px; /* Same level as bot */
+    right: 15%; /* Position to the right */
+    width: 60px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    animation: cupBob 5s ease-in-out infinite alternate;
+}
+
+.cup-body {
+    width: 60px;
+    height: 60px;
+    background-color: var(--cup-cream);
+    border-radius: 0 0 25px 25px; /* Rounded bottom */
+    border: 3px solid var(--coffee-brown);
+    border-top: none;
+    position: relative;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cup-body::before { /* Coffee inside the cup */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background-color: var(--coffee-brown);
+    border-radius: 0 0 10px 10px;
+}
+
+.handle {
+    width: 25px;
+    height: 30px;
+    border: 5px solid var(--cup-cream);
+    border-left: none;
+    border-radius: 0 50% 50% 0;
+    position: absolute;
+    right: -10px;
+    top: 15px;
+    transform: rotate(20deg);
+}
+
+.steam-container {
+    position: absolute;
+    top: -20px; /* Above the cup */
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.steam {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
+    animation: steamRise 4s infinite ease-out;
+}
+
+.steam.s1 { animation-delay: 0s; left: 10px; }
+.steam.s2 { animation-delay: 1.3s; left: -10px; }
+.steam.s3 { animation-delay: 2.6s; } /* Centered */
+
+/* Coffee Cup Animations */
+@keyframes cupBob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(1deg); }
+}
+
+@keyframes steamRise {
+    0% { transform: translateY(0) scale(0.5); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(-30px) scale(1.2); opacity: 0; }
+}
+
+
+/* Mobile Responsiveness */
+@media (max-width: 700px) {
+    .hero-content {
+        width: auto;
+        padding: 20px; /* Adjust padding */
+    }
+
+    h1 {
+        font-size: 2.8rem; /* Adjusted size */
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    p {
+        font-size: 0.95rem; /* Slightly smaller for mobile */
+    }
+
+    #hamburger-menu {
+        font-size: 25px;
+        padding: 8px 12px;
+        top: 15px; /* Adjust position */
+        left: 15px;
+    }
+
+    .side-panel {
+        width: 250px; /* Adjust for smaller screens */
+        left: -250px;
+        padding-top: 60px;
+    }
+
+    .side-panel ul li {
+        padding: 10px 15px;
+    }
+
+    footer {
+        padding: 12px 15px;
+    }
+
+    /* Responsive Design for Accordion */
+    .accordion-button {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+
+    .accordion-content {
+        /* Removed padding for consistency with desktop active state logic */
+        font-size: 1rem;
+    }
+
+    .accordion-content.active {
+        padding-top: 12px; /* Adjusted padding for mobile open state */
+        padding-bottom: 12px;
+        padding-left: 18px; /* Maintain horizontal padding */
+        padding-right: 18px; /* Maintain horizontal padding */
+    }
+
+    .accordion-content p {
+        padding: 4px 0;
+    }
+
+    .contact-card {
+        padding: 10px;
+    }
+
+    img {
+        margin: 15px auto; /* Reduced margin for mobile */
+    }
+
+    /* Trading Bot Animation Responsive */
+    .trading-bot-animation-section {
+        height: 300px; /* Smaller height for mobile */
+        max-width: 90%;
+        margin: 30px auto;
+    }
+    .bot-character {
+        left: 10%; /* Adjust position */
+        transform: scale(0.8); /* Scale down bot */
+        bottom: 50px;
+    }
+    .candlestick-chart {
+        transform: translateX(-50%) scale(0.8); /* Scale down chart */
+        bottom: 45px;
+    }
+    .coffee-cup {
+        right: 10%; /* Adjust position */
+        transform: scale(0.8); /* Scale down cup */
+        bottom: 50px;
+    }
+    .computer-screen {
+        font-size: 0.5em; /* Smaller text */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .side-panel {
+        width: 100%; /* Full width on smallest screens */
+        left: -100%;
+        padding-top: 50px;
+    }
+
+    #hamburger-menu {
+        font-size: 20px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .hero-section {
+        min-height: 60vh;
+    }
+
+    .accordion-button {
+        font-size: 0.95rem;
+        padding: 8px 15px;
+    }
+
+    .accordion-content {
+        font-size: 0.9rem;
+        /* Removed padding for consistency with desktop active state logic */
+    }
+    .accordion-content.active {
+        padding-top: 10px; /* Adjusted padding for smallest mobile open state */
+        padding-bottom: 10px;
+        padding-left: 15px; /* Maintain horizontal padding */
+        padding-right: 15px; /* Maintain horizontal padding */
+    }
+
+    /* Trading Bot Animation Responsive */
+    .trading-bot-animation-section {
+        height: 250px; /* Even smaller height for tiny screens */
+        max-width: 95%;
+        margin: 20px auto;
+    }
+    .bot-character, .coffee-cup {
+        transform: scale(0.7); /* Scale down even further */
+    }
+    .candlestick-chart {
+        transform: translateX(-50%) scale(0.7);
+    }
+}
+.hero-section {
+  position: relative; /* Make the hero section a positioning context */
+  overflow: hidden; /* Hide any overflowing content */
+}
+
+.trading-bot-animation-section {
+  position: absolute; /* Position the animation absolutely within the hero section */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Ensure it's above the background image */
+}
+
+/* Add any other existing styles for your animation here */
+
+/* Optional: Add a transition for a smoother effect */
+.trading-bot-animation-section {
+  transition: opacity 0.5s ease;
+}
+
+/* Hide the animation initially */
+.trading-bot-animation-section {
+  opacity: 0;
+}
+
+/* Show the animation when the user is at the top of the page */
+body.at-top .trading-bot-animation-section {
+  opacity: 1;
+}
+
+/* JavaScript to toggle the 'at-top' class on the body */
+window.addEventListener('scroll', () => {
+  if (window.scrollY === 0) {
+    document.body.classList.add('at-top');
+  } else {
+    document.body.classList.remove('at-top');
+  }
+});
+
+/* Add the 'at-top' class initially */
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.scrollY === 0) {
+    document.body.classList.add('at-top');
+  }
+});
